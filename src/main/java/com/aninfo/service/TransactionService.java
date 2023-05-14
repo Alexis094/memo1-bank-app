@@ -16,10 +16,10 @@ public class TransactionService {
     private TransactionRepository transactionRepository;
 
     public Transaction createDeposit(Long cbu, Double sum){
-
         double extra = (double) 0;
         double init_promo_sum = 2000.0;
         double cap_sum_promo = 500.0;
+        double promo_percentage = 0.1;
 
         if (sum <= 0) {
             throw new DepositNegativeSumException("Cannot deposit negative sums");
@@ -27,7 +27,7 @@ public class TransactionService {
 
         //promo account:
         if (sum >= init_promo_sum) {
-            if ((extra = sum* 0.10) > cap_sum_promo)
+            if ((extra = sum * promo_percentage) > cap_sum_promo)
                 extra = cap_sum_promo;
         }
 
