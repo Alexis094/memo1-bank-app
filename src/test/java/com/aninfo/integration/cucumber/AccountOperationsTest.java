@@ -67,6 +67,7 @@ public class AccountOperationsTest extends AccountIntegrationServiceTest {
         assertEquals(Double.valueOf(balance), account.getBalance());
     }
 
+
     @After
     public void tearDown() {
         System.out.println("After all test execution");

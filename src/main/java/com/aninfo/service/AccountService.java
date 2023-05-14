@@ -53,13 +53,22 @@ public class AccountService {
 
     @Transactional
     public Account deposit(Long cbu, Double sum) {
+        double extra = (double) 0;
+        double init_promo_sum = 2000.0;
+        double cap_sum_promo = 500.0;
 
         if (sum <= 0) {
             throw new DepositNegativeSumException("Cannot deposit negative sums");
         }
 
+        //promo account:
+        if (sum >= init_promo_sum) {
+            if ((extra = sum* 0.10) > cap_sum_promo)
+                extra = cap_sum_promo;
+        }
+
         Account account = accountRepository.findAccountByCbu(cbu);
-        account.setBalance(account.getBalance() + sum);
+        account.setBalance(account.getBalance() + sum + extra);
         accountRepository.save(account);
 
         return account;
